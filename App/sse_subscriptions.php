@@ -21,8 +21,6 @@ $application = \Ecotone\Lite\EcotoneLiteApplication::boostrap(
 
 $walletId =filter_input(INPUT_GET, 'wallet_id', FILTER_SANITIZE_NUMBER_INT) ?? 1;
 $oldBalance=null;
-$walletBalance = $application->getQueryBus()->sendWithRouting("getWalletBalance", $walletId);
-
 
 $callback = function () use ($application,$walletId,&$oldBalance) {
     if ($oldBalance===null) {
