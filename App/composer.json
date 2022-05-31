@@ -1,0 +1,27 @@
+{
+    "name": "ecotone/app",
+    "autoload": {
+        "psr-4": {
+            "Ecotone\\App\\": "src/"
+        }
+    },
+    "require": {
+        "ecotone/lite-event-sourcing-starter": "^1.0",
+        "hhxsv5/php-sse": "~2.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "cweagans/composer-patches": true
+        }
+    },
+    "extra": {
+        "patches": {
+            "ecotone/dbal": [
+                "patches/ecotone-dbal-src-dbal-documentstore-dbaldocumentstore-php.patch"
+            ]
+        }
+    },
+    "require-dev": {
+        "symplify/vendor-patches": "^10.2"
+    }
+}
