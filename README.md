@@ -1,3 +1,8 @@
+# ecotone-eventsource-example-wallet
+
+* add database persistance
+* add Server-Sent Events (SSE) API
+
 ## debugging
 
 ### php
