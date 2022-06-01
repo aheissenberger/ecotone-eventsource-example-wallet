@@ -9,11 +9,5 @@ use Ecotone\Modelling\EventBus;
 class SSEService
 {
     #[CommandHandler("updateBalance", endpointId: "updateBalance_endpoint")] 
-    public function updateBalance( $data, EventBus $eventBus) : void
-    {
-        // echo "data: $data". PHP_EOL;
-        // echo PHP_EOL;
-        // //ob_flush();
-        // flush();
-    }
+    public function updateBalance( $data) : void {}
 }
