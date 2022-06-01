@@ -31,14 +31,17 @@ class Configuration
     #[ServiceContext]
     public function dbEventStorage()
     {
+        $snapshotGivenAggregates = [Wallet::class];
+        $threshold = 100;
         return [
+            DbalConfiguration::createWithDefaults()
+            ->withTransactionOnCommandBus(false)
+            ->withDocumentStore(initializeDatabaseTable: true),
             // setting updb event sourcing
             EventSourcingConfiguration::createWithDefaults()
-                ->withSingleStreamPersistenceStrategy(),
-            // turning off default database transactions
-            DbalConfiguration::createWithDefaults()
-                ->withTransactionOnCommandBus(false)
-                ->withDocumentStore(initializeDatabaseTable: true)
+                ->withSingleStreamPersistenceStrategy()
+                 /* ->withSnapshots($snapshotGivenAggregates, $threshold) */
+           
         ];
     }
 
@@ -72,10 +75,10 @@ class Configuration
     }
 
     #[ServiceActivator("finalErrorChannel")]
-public function handle(ErrorMessage $errorMessage): void
-{
-    // do something with ErrorMessage
-}
+    public function handle(ErrorMessage $errorMessage): void
+    {
+        // do something with ErrorMessage
+    }
 
     // #[ServiceContext]
     // public function CurrentBalanceProjection()
