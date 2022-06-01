@@ -17,6 +17,7 @@ class Wallet
 
     #[AggregateIdentifier]
     private int $walletId;
+    private int $balance;
 
     
     #[CommandHandler("registerWallet", endpointId: "registerWallet_endpoint")]
@@ -39,8 +40,21 @@ class Wallet
     }
 
     #[EventSourcingHandler]
+    public function onMoneyWasAddedToWallet(MoneyWasAddedToWallet $event): void
+    {
+        $this->balance = $this->balance + $event->amount;
+    }
+
+    #[EventSourcingHandler]
+    public function onMoneyWasSubtractedFromWallet(MoneyWasSubtractedFromWallet $event): void
+    {
+        $this->balance = $this->balance - $event->amount;
+    }
+
+    #[EventSourcingHandler]
     public function onWalletWasRegistered(WalletWasRegistered $event): void
     {
         $this->walletId = $event->walletId;
+        $this->balance = 0;
     }
 }
