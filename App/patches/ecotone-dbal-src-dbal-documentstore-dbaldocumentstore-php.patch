@@ -1,14 +1,19 @@
 --- /dev/null
 +++ ../src/Dbal/DocumentStore/DbalDocumentStore.php
-@@ -188,7 +188,11 @@
+@@ -188,7 +188,16 @@
          $table->addColumn('document_type', Types::TEXT);
          $table->addColumn('document', Types::JSON);
  
 -        $table->setPrimaryKey(['collection', 'document_id']);
-+        if ($sm->getDatabasePlatform()->getName()) {
-+            $table->addIndex(['collection', 'document_id'],null,[],["lengths"=>[255,255]]);
++        $columnNames=['collection', 'document_id'];
++        if ($sm->getDatabasePlatform()->getName()==='mysql') {
++            $table->addIndex($columnNames,null,[],["lengths"=>[255,255]]);
++            foreach ($columnNames as $columnName) {
++                $column = $table->getColumn($columnName);
++                $column->setNotnull(true);
++            }
 +        } else {
-+            $table->setPrimaryKey(['collection', 'document_id']);
++            $table->setPrimaryKey($columnNames);
 +        }
  
          $sm->createTable($table);

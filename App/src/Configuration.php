@@ -39,8 +39,8 @@ class Configuration
             ->withDocumentStore(initializeDatabaseTable: true),
             // setting updb event sourcing
             EventSourcingConfiguration::createWithDefaults()
-                ->withSingleStreamPersistenceStrategy()
-                 /* ->withSnapshots($snapshotGivenAggregates, $threshold) */
+                /* ->withSingleStreamPersistenceStrategy() */
+                 ->withSnapshots($snapshotGivenAggregates, $threshold)
            
         ];
     }

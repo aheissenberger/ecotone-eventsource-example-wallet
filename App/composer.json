@@ -18,6 +18,9 @@
         "patches": {
             "ecotone/dbal": [
                 "patches/ecotone-dbal-src-dbal-documentstore-dbaldocumentstore-php.patch"
+            ],
+            "ecotone/pdo-event-sourcing": [
+                "patches/ecotone-pdo-event-sourcing-src-eventsourcing-eventsourcingrepository-php.patch"
             ]
         }
     },
